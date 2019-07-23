@@ -25,6 +25,8 @@ RUN apk --no-cache add \
     php7-json \
     php7-curl \
     php7-gmp \
+    php7-exif \
+    php7-mcrypt \
     libsodium \
     apache2 \
     php7-apache2 \
