@@ -15,6 +15,7 @@ FROM alpine:3.7
 ENV TZ=America/Argentina/Buenos_Aires
 
 RUN apk --no-cache add \
+    bash \
     tzdata \
     php7 \
     php7-pdo_pgsql \
