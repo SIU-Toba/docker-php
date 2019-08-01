@@ -18,16 +18,22 @@ RUN apk --no-cache add \
     bash \
     tzdata \
     php7 \
-    php7-pdo_pgsql \
-    php7-gd \
-    php7-mbstring \
-    php7-zip \
-    php7-pcntl \
-    php7-json \
     php7-curl \
-    php7-gmp \
+    php7-dom \
     php7-exif \
+    php7-gd \
+    php7-gmp \
+    php7-json \
+    php7-mbstring \
     php7-mcrypt \
+    php7-opcache \
+    php7-pcntl \
+    php7-pdo_pgsql \
+    php7-phar \
+    php7-session \
+    php7-tokenizer \
+    php7-zip \
+    php7-xml \
     libsodium \
     apache2 \
     php7-apache2 \
