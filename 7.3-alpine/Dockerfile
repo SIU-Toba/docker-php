@@ -33,7 +33,6 @@ RUN apk --no-cache add \
     curl \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /run/apache2 \
-    && echo "extension=sodium.so" >> /etc/php7/php.ini \
     && echo "date.timezone=America/Argentina/Buenos_Aires" >> /etc/php7/php.ini \
     && echo "log_errors=On" >> /etc/php7/php.ini \
     && echo "ErrorLog /dev/stderr" >> /etc/apache2/httpd.conf \
