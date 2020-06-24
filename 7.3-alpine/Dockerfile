@@ -16,6 +16,7 @@ RUN apk --no-cache add \
     php7-iconv \
     php7-json \
     php7-mbstring \
+    php7-memcached \
     php7-opcache \
     php7-openssl \
     php7-pcntl \
@@ -27,6 +28,8 @@ RUN apk --no-cache add \
     php7-tokenizer \
     php7-zip \
     php7-xml \
+    php7-xmlwriter \
+    php7-xsl \
     libsodium \
     apache2 \
     php7-apache2 \
