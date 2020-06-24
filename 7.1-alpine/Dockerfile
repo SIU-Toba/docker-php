@@ -51,6 +51,9 @@ RUN apk --no-cache add \
     && echo "ErrorLog /dev/stderr" >> /etc/apache2/httpd.conf \
     && echo "TransferLog /dev/stdout" >> /etc/apache2/httpd.conf \
     && echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /etc/apache2/httpd.conf \
+    && echo "ServerTokens Prod" >> /etc/apache2/httpd.conf \
+    && echo "ServerSignature Off" >> /etc/apache2/httpd.conf \
+    && echo "TraceEnable off" >> /etc/apache2/httpd.conf \
     && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY --from=sodium /usr/lib/php7/modules/libsodium.so /usr/lib/php7/modules/
