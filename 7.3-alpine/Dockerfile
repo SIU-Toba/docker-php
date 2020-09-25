@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.12
 # Por defecto se utiliza la timezone de Buenos Aires
 ENV TZ=America/Argentina/Buenos_Aires
 
