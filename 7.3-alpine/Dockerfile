@@ -46,4 +46,23 @@ RUN apk --no-cache add \
     && echo "TraceEnable off" >> /etc/apache2/httpd.conf \
     && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# Set environments variables in config file
+RUN sed -i "s|;*memory_limit =.*|memory_limit = \$\{PHP_MEMORY_LIMIT\}|i" /etc/php7/php.ini
+RUN sed -i "s|;*upload_max_filesize =.*|upload_max_filesize = \$\{MAX_UPLOAD\}|i" /etc/php7/php.ini
+RUN sed -i "s|;*max_file_uploads =.*|max_file_uploads = \$\{PHP_MAX_FILE_UPLOAD\}|i" /etc/php7/php.ini
+RUN sed -i "s|;*max_input_vars =.*|max_input_vars = \$\{PHP_MAX_INPUT_VARS\}|i" /etc/php7/php.ini
+RUN sed -i "s|;*post_max_size =.*|post_max_size = \$\{PHP_MAX_POST\}|i" /etc/php7/php.ini
+RUN sed -i "s|;*display_errors =.*|display_errors = \$\{PHP_DISPLAY_ERRORS\}|i" /etc/php7/php.ini
+RUN sed -i "s|;*log_errors =.*|log_errors = \$\{PHP_LOGS_ERRORS\}|i" /etc/php7/php.ini
+
+# Set Environments values
+ENV PHP_MEMORY_LIMIT    256M
+ENV MAX_UPLOAD          16M
+ENV PHP_MAX_FILE_UPLOAD 200
+ENV PHP_MAX_POST        32M
+ENV PHP_MAX_INPUT_VARS  1500
+ENV PHP_DISPLAY_ERRORS Off
+ENV PHP_LOGS_ERRORS  On
+
+
 EXPOSE 80
