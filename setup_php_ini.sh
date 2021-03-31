@@ -11,4 +11,4 @@ sed -i \
  -e "s|;*log_errors =.*|log_errors = \$\{PHP_LOGS_ERRORS\}|i" \
  -e "s|;*date.timezone  =.*|date.timezone = \$\{TZ\}|i" \
  -e "s|expose_php =.*|expose_php = Off|i" \
-    /etc/php7/php.ini
+    $1

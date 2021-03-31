@@ -56,6 +56,6 @@ RUN apk --no-cache add \
 
 # Set environments variables in config file
 COPY setup_php_ini.sh /
-RUN /setup_php_ini.sh
+RUN /setup_php_ini.sh /etc/php7/php.ini
 
 EXPOSE 80

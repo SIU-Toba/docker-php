@@ -1,4 +1,14 @@
 FROM alpine:3.13
+
+# Set Environments values for PHP
+ENV PHP_MEMORY_LIMIT    256M
+ENV PHP_MAX_UPLOAD_SIZE 16M
+ENV PHP_MAX_FILE_UPLOAD 200
+ENV PHP_MAX_POST        32M
+ENV PHP_MAX_INPUT_VARS  1500
+ENV PHP_DISPLAY_ERRORS Off
+ENV PHP_LOGS_ERRORS  On
+
 # Por defecto se utiliza la timezone de Buenos Aires
 ENV TZ=America/Argentina/Buenos_Aires
 
@@ -37,8 +47,6 @@ RUN apk --no-cache add \
     curl \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /run/apache2 \
-    && echo "date.timezone=America/Argentina/Buenos_Aires" >> /etc/php8/php.ini \
-    && echo "log_errors=On" >> /etc/php8/php.ini \
     && echo "ErrorLog /dev/stderr" >> /etc/apache2/httpd.conf \
     && echo "TransferLog /dev/stdout" >> /etc/apache2/httpd.conf \
     && echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /etc/apache2/httpd.conf \
@@ -47,4 +55,8 @@ RUN apk --no-cache add \
     && echo "TraceEnable off" >> /etc/apache2/httpd.conf \
     && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# Set environments variables in config file
+COPY setup_php_ini.sh /
+RUN /setup_php_ini.sh /etc/php8/php.ini
+    
 EXPOSE 80

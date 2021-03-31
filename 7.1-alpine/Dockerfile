@@ -71,7 +71,7 @@ COPY --from=sodium /usr/lib/php7/modules/libsodium.so /usr/lib/php7/modules/
 
 # Set environments variables in config file
 COPY setup_php_ini.sh /
-RUN /setup_php_ini.sh
+RUN /setup_php_ini.sh /etc/php7/php.ini
 
 EXPOSE 80
 
