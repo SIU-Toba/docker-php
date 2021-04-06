@@ -12,3 +12,10 @@ sed -i \
  -e "s|;*date.timezone  =.*|date.timezone = \$\{TZ\}|i" \
  -e "s|expose_php =.*|expose_php = Off|i" \
     $1
+    
+# Sigue aca para no alcanzar limite de entrada    
+sed -i \
+ -e "s|;*session.use_strict_mode =.*|session.use_strict_mode = 1|i" \
+ -e "s|;*session.cookie_http_only =.*|session.cookie_http_only = 1|i" \
+ -e "s|;*session.use_only_cookies =.*|session.use_only_cookies = 1|i" \
+    $1
