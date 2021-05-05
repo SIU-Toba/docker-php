@@ -1,0 +1,1 @@
+echo "date.timezone  = $TZ" > /etc/php7/conf.d/80-siu-timezone.ini
