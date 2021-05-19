@@ -10,16 +10,7 @@ RUN apk add \
     libsodium-dev \
     && pecl install -f libsodium-1.0.6
 
-FROM alpine:3.7
-
-# Set Environments values for PHP
-ENV PHP_MEMORY_LIMIT    256M
-ENV PHP_MAX_UPLOAD_SIZE 16M
-ENV PHP_MAX_FILE_UPLOAD 200
-ENV PHP_MAX_POST        32M
-ENV PHP_MAX_INPUT_VARS  1500
-ENV PHP_DISPLAY_ERRORS Off
-ENV PHP_LOGS_ERRORS  On
+FROM alpine:3.7 as cli
 
 # Por defecto se utiliza la timezone de Buenos Aires
 ENV TZ=America/Argentina/Buenos_Aires
@@ -53,25 +44,41 @@ RUN apk --no-cache add \
     php7-xmlwriter \
     php7-xsl \
     libsodium \
-    apache2 \
-    php7-apache2 \
     curl \
     && rm -rf /var/cache/apk/* \
-    && mkdir -p /run/apache2 \
-    && echo "extension=libsodium.so" >> /etc/php7/php.ini \    
-    && echo "ErrorLog /dev/stderr" >> /etc/apache2/httpd.conf \
-    && echo "TransferLog /dev/stdout" >> /etc/apache2/httpd.conf \
-    && echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /etc/apache2/httpd.conf \
-    && echo "ServerTokens Prod" >> /etc/apache2/httpd.conf \
-    && echo "ServerSignature Off" >> /etc/apache2/httpd.conf \
-    && echo "TraceEnable off" >> /etc/apache2/httpd.conf \
-    && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+    && echo extension=libsodium.so > /etc/php7/conf.d/00_sodium.ini
 
 COPY --from=sodium /usr/lib/php7/modules/libsodium.so /usr/lib/php7/modules/
 
-# Set environments variables in config file
-COPY setup_php_ini.sh /
-RUN /setup_php_ini.sh /etc/php7/php.ini
+FROM cli as web
+
+RUN apk --no-cache add \
+    apache2 \
+    php7-apache2 \
+    && rm -rf /var/cache/apk/* \
+    && mkdir -p /var/log/apache2 \
+    && ln -s /dev/stderr /var/log/apache2/error.log \
+    && ln -s /dev/stdout /var/log/apache2/access.log
+COPY common/apache/* /etc/apache2/conf.d/
+COPY common/php/* /etc/php7/conf.d/
+COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
+COPY common/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
+
+CMD ["httpd", "-D", "FOREGROUND"]
 
 EXPOSE 80
 
+FROM web as rootless
+
+ARG USER=siu
+ARG UID=222
+
+RUN adduser -h /usr/local/app -u $UID -G www-data -S $USER \
+    && chown -R siu.www-data \
+        /var/log/apache2 \
+        /etc/php7/conf.d \
+        /etc/apache2/conf.d \
+        /var/www/localhost/htdocs
+USER $USER
