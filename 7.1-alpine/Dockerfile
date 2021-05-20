@@ -57,6 +57,7 @@ RUN apk --no-cache add \
     php7-apache2 \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /var/log/apache2 \
+    && mkdir -p /var/run/apache2 \
     && ln -s /dev/stderr /var/log/apache2/error.log \
     && ln -s /dev/stdout /var/log/apache2/access.log
 COPY common/apache/* /etc/apache2/conf.d/
@@ -78,6 +79,7 @@ ARG UID=222
 RUN adduser -h /usr/local/app -u $UID -G www-data -S $USER \
     && chown -R siu.www-data \
         /var/log/apache2 \
+        /var/run/apache2 \
         /etc/php7/conf.d \
         /etc/apache2/conf.d \
         /var/www/localhost/htdocs
