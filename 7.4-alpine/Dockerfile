@@ -17,7 +17,6 @@ RUN apk --no-cache add \
     php7-iconv \
     php7-json \
     php7-mbstring \
-    php7-mcrypt \
     php7-memcached \
     php7-opcache \
     php7-openssl \
