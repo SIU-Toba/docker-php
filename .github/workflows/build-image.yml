@@ -25,7 +25,31 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Push cli to Docker Hub
+        name: Push 7.1 cli to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: ./7.1-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.1-cli-${{ steps.vars.outputs.tag }}
+          target: cli
+      -
+        name: Push 7.1 web to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: ./7.1-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.1-web-${{ steps.vars.outputs.tag }} 
+          target: web
+      -
+        name: Push 7.1 rootless to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: ./7.1-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.1-web-rootless-${{ steps.vars.outputs.tag }} 
+          target: rootless
+      -
+        name: Push 7.4 cli to Docker Hub
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -33,7 +57,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-cli-${{ steps.vars.outputs.tag }}
           target: cli
       -
-        name: Push web to Docker Hub
+        name: Push 7.4 web to Docker Hub
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -41,7 +65,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-web-${{ steps.vars.outputs.tag }} 
           target: web
       -
-        name: Push rootless to Docker Hub
+        name: Push 7.4 rootless to Docker Hub
         uses: docker/build-push-action@v2
         with:
           push: true
