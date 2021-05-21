@@ -58,10 +58,18 @@ EXPOSE 80
 FROM web as rootless
 
 ARG USER=siu
+ENV USER=$USER
 ARG UID=222
 
 RUN adduser -h /usr/local/app -u $UID -G www-data -S $USER \
-    && chown -R siu.www-data \
+    && chown -R $USER.0 \
+        /var/run/apache2 \
+        /var/log/apache2 \
+        /etc/php7/conf.d \
+        /etc/apache2/conf.d \
+        /var/www/localhost/htdocs \
+    && chmod -R g=u \
+        /etc/passwd \
         /var/run/apache2 \
         /var/log/apache2 \
         /etc/php7/conf.d \
