@@ -84,11 +84,13 @@ RUN adduser -h /usr/local/app -u $UID -G www-data -S $USER \
         /etc/php7/conf.d \
         /etc/apache2/conf.d \
         /var/www/localhost/htdocs \
+        /siu-entrypoint.d \
     && chmod -R g=u \
         /etc/passwd \
         /var/log/apache2 \
         /var/run/apache2 \
         /etc/php7/conf.d \
         /etc/apache2/conf.d \
-        /var/www/localhost/htdocs
+        /var/www/localhost/htdocs \
+        /siu-entrypoint.d
 USER $USER
