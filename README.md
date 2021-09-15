@@ -60,7 +60,7 @@ configuración de `memory_limit`. Primero verificamos el valor actual:
 
 ```bash
 docker run --rm \
-  siutoba/php:cli-7.4 php -r 'echo ini_get("memory_limit")."\n";'
+  siudocker/php:cli-7.4 php -r 'echo ini_get("memory_limit")."\n";'
 ```
 
 Usando un volumen:
@@ -70,7 +70,7 @@ echo "memory_limit = 64M" > /tmp/custom.ini && \
   docker run \
     -v /tmp/custom.ini:/etc/php7/conf.d/90-custom.ini \
     --rm \
-    siutoba/php:cli-7.4 php -r 'echo ini_get("memory_limit")."\n";'
+    siudocker/php:cli-7.4 php -r 'echo ini_get("memory_limit")."\n";'
 ```
 
 Usando un config de swarm:
@@ -84,7 +84,7 @@ cat <<COMPOSE > /tmp/siu-stack.yml
 version: "3.9"
 services:
   web:
-    image: siutoba/php:web-7.4
+    image: siudocker/php:web-7.4
     deploy:
       replicas: 1
     configs:
@@ -115,7 +115,7 @@ cargar cuantas personalizaciones querramos.
 Un ejemplo de agregar una personalización sería:
 
 ```
-FROM siutoba/php:web-7.4
+FROM siudocker/php:web-7.4
 
 COPY ./custom.ini /etc/php7/conf.d/99-custom.ini
 ```
