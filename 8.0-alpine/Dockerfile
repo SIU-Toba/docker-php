@@ -1,18 +1,7 @@
-FROM alpine:3.13
-
-# Set Environments values for PHP
-ENV PHP_MEMORY_LIMIT    256M
-ENV PHP_MAX_UPLOAD_SIZE 16M
-ENV PHP_MAX_FILE_UPLOAD 200
-ENV PHP_MAX_POST        32M
-ENV PHP_MAX_INPUT_VARS  1500
-ENV PHP_DISPLAY_ERRORS Off
-ENV PHP_LOGS_ERRORS  On
+FROM alpine:3.15 as cli
 
 # Por defecto se utiliza la timezone de Buenos Aires
 ENV TZ=America/Argentina/Buenos_Aires
-
-## Falta agregar  php8-memcached que no esta en el repo aun
 
 RUN apk --no-cache add \
     bash \
@@ -41,22 +30,51 @@ RUN apk --no-cache add \
     php8-xml \
     php8-xmlwriter \
     php8-xsl \
+    php8-pecl-memcached \    
     libsodium \
+    curl \
+    && rm -rf /var/cache/apk/*
+
+FROM cli as web
+
+RUN apk --no-cache add \
     apache2 \
     php8-apache2 \
-    curl \
     && rm -rf /var/cache/apk/* \
-    && mkdir -p /run/apache2 \
-    && echo "ErrorLog /dev/stderr" >> /etc/apache2/httpd.conf \
-    && echo "TransferLog /dev/stdout" >> /etc/apache2/httpd.conf \
-    && echo "LoadModule rewrite_module modules/mod_rewrite.so" >> /etc/apache2/httpd.conf \
-    && echo "ServerTokens Prod" >> /etc/apache2/httpd.conf \
-    && echo "ServerSignature Off" >> /etc/apache2/httpd.conf \
-    && echo "TraceEnable off" >> /etc/apache2/httpd.conf \
-    && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+    && mkdir -p /var/log/apache2 \
+    && ln -s /dev/stderr /var/log/apache2/error.log \
+    && ln -s /dev/stdout /var/log/apache2/access.log
+COPY common/apache/* /etc/apache2/conf.d/
+COPY common/php/* /etc/php8/conf.d/
+COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
+COPY common/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# Set environments variables in config file
-COPY setup_php_ini.sh /
-RUN /setup_php_ini.sh /etc/php8/php.ini
-    
+ENTRYPOINT ["entrypoint.sh"]
+
+CMD ["httpd", "-D", "FOREGROUND"]
+
 EXPOSE 80
+
+FROM web as rootless
+
+ARG USER=siu
+ENV USER=$USER
+ARG UID=222
+
+RUN adduser -h /usr/local/app -u $UID -G www-data -S $USER \
+    && chown -R $USER.0 \
+        /var/run/apache2 \
+        /var/log/apache2 \
+        /etc/php8/conf.d \
+        /etc/apache2/conf.d \
+        /var/www/localhost/htdocs \
+        /siu-entrypoint.d \
+    && chmod -R g=u \
+        /etc/passwd \
+        /var/run/apache2 \
+        /var/log/apache2 \
+        /etc/php8/conf.d \
+        /etc/apache2/conf.d \
+        /var/www/localhost/htdocs \
+        /siu-entrypoint.d
+USER $USER
