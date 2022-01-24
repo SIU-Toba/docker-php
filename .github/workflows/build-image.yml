@@ -73,7 +73,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-web-rootless-${{ steps.vars.outputs.tag }} 
           target: rootless
       -
-        name: Push 8.8 cli to Docker Hub
+        name: Push 8.0 cli to Docker Hub
         uses: docker/build-push-action@v2
         with:
           push: true
