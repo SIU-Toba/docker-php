@@ -8,10 +8,11 @@
 Este repositorio contiene el código necesario para construir imágenes de
 contenedores basadas en php en diferentes versiones del lenguaje:
 
-* [x] 7.1
-* [ ] 7.3
+* [x] 7.1 (deprecated)
+* [x] 7.3 (deprecated)
 * [x] 7.4
-* [ ] 8.0
+* [x] 8.0
+* [ ] 8.1
 
 En cada versión, se proveen versiones para:
 
