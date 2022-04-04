@@ -52,6 +52,7 @@ RUN apk --no-cache add \
     && echo "ServerTokens Prod" >> /etc/apache2/httpd.conf \
     && echo "ServerSignature Off" >> /etc/apache2/httpd.conf \
     && echo "TraceEnable off" >> /etc/apache2/httpd.conf \
+    && echo "date.timezone  = $TZ" > /etc/php7/conf.d/80-siu-timezone.ini \
     && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Set environments variables in config file

@@ -46,6 +46,7 @@ RUN apk --no-cache add \
     libsodium \
     curl \
     && rm -rf /var/cache/apk/* \
+    && echo "date.timezone  = $TZ" > /etc/php7/conf.d/80-siu-timezone.ini \
     && echo extension=libsodium.so > /etc/php7/conf.d/00_sodium.ini
 
 COPY --from=sodium /usr/lib/php7/modules/libsodium.so /usr/lib/php7/modules/
