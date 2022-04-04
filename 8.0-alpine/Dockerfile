@@ -7,6 +7,7 @@ RUN apk --no-cache add \
     bash \
     tzdata \
     php8 \
+    php8-cli \
     php8-ctype \
     php8-curl \
     php8-dom \
@@ -35,6 +36,10 @@ RUN apk --no-cache add \
     curl \
     && echo "date.timezone  = $TZ" > /etc/php8/conf.d/80-siu-timezone.ini \
     && rm -rf /var/cache/apk/*
+
+# https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
+RUN ln -s php8 /usr/bin/php
+
 
 FROM cli as web
 
