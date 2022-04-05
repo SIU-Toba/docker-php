@@ -33,6 +33,7 @@ RUN apk --no-cache add \
     php7-xsl \
     libsodium \
     curl \
+    && echo "date.timezone  = $TZ" > /etc/php7/conf.d/80-siu-timezone.ini \
     && rm -rf /var/cache/apk/*
 
 FROM cli as web
