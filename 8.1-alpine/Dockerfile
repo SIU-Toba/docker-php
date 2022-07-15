@@ -30,14 +30,14 @@ RUN apk --no-cache add \
     php81-xml \
     php81-xmlwriter \
     php81-xsl \
-    php81-pecl-memcached \    
+    php81-pecl-memcached \
     libsodium \
     curl \
     && echo "date.timezone  = $TZ" > /etc/php81/conf.d/80-siu-timezone.ini \
     && rm -rf /var/cache/apk/*
 
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
-RUN ln -s /usr/bin/php8 /usr/bin/php
+RUN ln -s /usr/bin/php81 /usr/bin/php
 
 FROM cli as web
 
