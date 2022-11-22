@@ -39,6 +39,13 @@ RUN apk --no-cache add \
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
+COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
+COPY common/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
+
+
+
 FROM cli as web
 
 RUN apk --no-cache add \
@@ -52,10 +59,6 @@ RUN apk --no-cache add \
     && sed -i 's/^Listen 80$/Listen 0.0.0.0:80/' /etc/apache2/httpd.conf
 COPY common/apache/* /etc/apache2/conf.d/
 COPY common/php/* /etc/php8/conf.d/
-COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
-COPY common/entrypoint.sh /usr/local/bin/entrypoint.sh
-
-ENTRYPOINT ["entrypoint.sh"]
 
 CMD ["httpd", "-D", "FOREGROUND"]
 
