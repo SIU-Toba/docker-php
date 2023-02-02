@@ -20,13 +20,13 @@ jobs:
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       -
         name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Push 7.4 cli to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./7.4-alpine/Dockerfile
@@ -34,7 +34,7 @@ jobs:
           target: cli
       -
         name: Push 7.4 web to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./7.4-alpine/Dockerfile
@@ -42,7 +42,7 @@ jobs:
           target: web
       -
         name: Push 7.4 rootless to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./7.4-alpine/Dockerfile
@@ -50,7 +50,7 @@ jobs:
           target: rootless
       -
         name: Push 8.0 cli to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./8.0-alpine/Dockerfile
@@ -58,7 +58,7 @@ jobs:
           target: cli
       -
         name: Push 8.0 web to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./8.0-alpine/Dockerfile
@@ -66,7 +66,7 @@ jobs:
           target: web
       -
         name: Push 8.0 rootless to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./8.0-alpine/Dockerfile
@@ -74,7 +74,7 @@ jobs:
           target: rootless
       -
         name: Push 8.1 cli to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./8.1-alpine/Dockerfile
@@ -82,7 +82,7 @@ jobs:
           target: cli
       -
         name: Push 8.1 web to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./8.1-alpine/Dockerfile
@@ -90,7 +90,7 @@ jobs:
           target: web
       -
         name: Push 8.1 rootless to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           push: true
           file: ./8.1-alpine/Dockerfile
