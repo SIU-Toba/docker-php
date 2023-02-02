@@ -30,7 +30,7 @@ jobs:
         with:
           push: true
           file: ./7.4-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-cli-${{ env.tag }}
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-cli-${{ steps.vars.outputs.tag }}
           target: cli
       -
         name: Push 7.4 web to Docker Hub
@@ -38,7 +38,7 @@ jobs:
         with:
           push: true
           file: ./7.4-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-web-${{ env.tag }} 
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-web-${{ steps.vars.outputs.tag }} 
           target: web
       -
         name: Push 7.4 rootless to Docker Hub
@@ -46,7 +46,7 @@ jobs:
         with:
           push: true
           file: ./7.4-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-web-rootless-${{ env.tag }} 
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:7.4-web-rootless-${{ steps.vars.outputs.tag }} 
           target: rootless
       -
         name: Push 8.0 cli to Docker Hub
@@ -54,7 +54,7 @@ jobs:
         with:
           push: true
           file: ./8.0-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-cli-${{ env.tag }}
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-cli-${{ steps.vars.outputs.tag }}
           target: cli
       -
         name: Push 8.0 web to Docker Hub
@@ -62,7 +62,7 @@ jobs:
         with:
           push: true
           file: ./8.0-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-web-${{ env.tag }} 
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-web-${{ steps.vars.outputs.tag }} 
           target: web
       -
         name: Push 8.0 rootless to Docker Hub
@@ -70,7 +70,7 @@ jobs:
         with:
           push: true
           file: ./8.0-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-web-rootless-${{ env.tag }} 
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-web-rootless-${{ steps.vars.outputs.tag }} 
           target: rootless
       -
         name: Push 8.1 cli to Docker Hub
@@ -78,7 +78,7 @@ jobs:
         with:
           push: true
           file: ./8.1-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-cli-${{ env.tag }}
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-cli-${{ steps.vars.outputs.tag }}
           target: cli
       -
         name: Push 8.1 web to Docker Hub
@@ -86,7 +86,7 @@ jobs:
         with:
           push: true
           file: ./8.1-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-web-${{ env.tag }} 
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-web-${{ steps.vars.outputs.tag }} 
           target: web
       -
         name: Push 8.1 rootless to Docker Hub
@@ -94,5 +94,5 @@ jobs:
         with:
           push: true
           file: ./8.1-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-web-rootless-${{ env.tag }} 
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-web-rootless-${{ steps.vars.outputs.tag }} 
           target: rootless
