@@ -62,7 +62,7 @@ FROM web as rootless
 
 # https://github.com/docker-library/httpd/issues/118
 # para soportar Docker <= 19.x
-RUN apk add libcap
+RUN apk --no-cache add libcap
 RUN setcap "cap_net_bind_service=+ep" /usr/sbin/httpd
 
 ARG USER=siu
