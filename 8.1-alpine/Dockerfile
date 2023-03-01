@@ -63,6 +63,11 @@ EXPOSE 80
 
 FROM web as rootless
 
+# https://github.com/docker-library/httpd/issues/118
+# para soportar Docker <= 19.x
+RUN apk add libcap
+RUN setcap "cap_net_bind_service=+ep" /usr/sbin/httpd
+
 ARG USER=siu
 ENV USER=$USER
 ARG UID=222
