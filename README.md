@@ -39,7 +39,7 @@ agregar para correr antes de iniciar el servicio.
 ## Puerto de ejecución
 
 Para la ejecución del proceso Apache, se opta por utilizar el puerto 8080, ya 
-que se trata de un puerto no privilegiado (tal como 1 a 1014). Esto nos permite
+que se trata de un puerto no privilegiado (tal como 1 a 1024). Esto nos permite
 contar con la posibilidad de ejecutar la imagen en modo Rootless (ver abajo), sin
 necesidad de agregar "capacidades" extra que pueden ser excluídas por cuestión de
 [seguridad](https://github.com/kubernetes-sigs/metrics-server/issues/791) en otros entornos.
