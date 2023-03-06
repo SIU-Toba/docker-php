@@ -56,7 +56,7 @@ ENTRYPOINT ["entrypoint.sh"]
 
 CMD ["httpd", "-D", "FOREGROUND"]
 
-EXPOSE 80
+EXPOSE 8080
 
 FROM web as rootless
 
