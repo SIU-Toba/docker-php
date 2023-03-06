@@ -3,13 +3,11 @@
 > dockerhub) y el nombre de la imagen definitiva. En mi opinión, el nombre
 > debería ser siu/php
 
-# Imagen base SIU php
+# Imagen base SIU para PHP
 
 Este repositorio contiene el código necesario para construir imágenes de
 contenedores basadas en php en diferentes versiones del lenguaje:
 
-* [x] 7.1 (deprecated)
-* [x] 7.3 (deprecated)
 * [x] 7.4
 * [x] 8.0
 * [x] 8.1
@@ -37,6 +35,14 @@ El entrypoint en la imagen cli se hereda de la imagen base, siendo un shell.
 Para el servicio web, es el servicio de apache el que tendrá el pid 1. Sin
 embargo, previo a su invocación, se recorren todos los scripts que se desee
 agregar para correr antes de iniciar el servicio.
+
+## Puerto de ejecución
+
+Para la ejecución del proceso Apache, se opta por utilizar el puerto 8080, ya 
+que se trata de un puerto no privilegiado (tal como 1 a 1024). Esto nos permite
+contar con la posibilidad de ejecutar la imagen en modo Rootless (ver abajo), sin
+necesidad de agregar "capacidades" extra que pueden ser excluídas por cuestión de
+[seguridad](https://github.com/kubernetes-sigs/metrics-server/issues/791) en otros entornos.
 
 ## Imagen Rootless
 
