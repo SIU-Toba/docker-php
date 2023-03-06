@@ -49,7 +49,7 @@ RUN apk --no-cache add \
     && ln -s /dev/stderr /var/log/apache2/error.log \
     && ln -s /dev/stdout /var/log/apache2/access.log \
     #fix warning https://stackoverflow.com/a/56645177"
-    && sed -i 's/^Listen 80$/Listen 0.0.0.0:80/' /etc/apache2/httpd.conf
+    && sed -i 's/^Listen 80$/Listen 0.0.0.0:8080/' /etc/apache2/httpd.conf
 COPY common/apache/* /etc/apache2/conf.d/
 COPY common/php/* /etc/php81/conf.d/
 COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
