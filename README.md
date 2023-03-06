@@ -1,8 +1,3 @@
-> Los nombres usados en este readme deberían modificarse por la imagen real. Que
-> dependerá de la registry seleccionada, la organización usada por SIU (si es
-> dockerhub) y el nombre de la imagen definitiva. En mi opinión, el nombre
-> debería ser siu/php
-
 # Imagen base SIU para PHP
 
 Este repositorio contiene el código necesario para construir imágenes de
@@ -67,7 +62,7 @@ configuración de `memory_limit`. Primero verificamos el valor actual:
 
 ```bash
 docker run --rm \
-  siudocker/php:cli-7.4 php -r 'echo ini_get("memory_limit")."\n";'
+  siudocker/php:8.1-cli-v1.0.1 php -r 'echo ini_get("memory_limit")."\n";'
 ```
 
 Usando un volumen:
@@ -75,9 +70,9 @@ Usando un volumen:
 ```bash
 echo "memory_limit = 64M" > /tmp/custom.ini && \
   docker run \
-    -v /tmp/custom.ini:/etc/php7/conf.d/90-custom.ini \
+    -v /tmp/custom.ini:/etc/php81/conf.d/90-custom.ini \
     --rm \
-    siudocker/php:cli-7.4 php -r 'echo ini_get("memory_limit")."\n";'
+    siudocker/php:8.1-cli-v1.0.1 php -r 'echo ini_get("memory_limit")."\n";'
 ```
 
 Usando un config de swarm:
@@ -91,12 +86,12 @@ cat <<COMPOSE > /tmp/siu-stack.yml
 version: "3.9"
 services:
   web:
-    image: siudocker/php:web-7.4
+    image: siudocker/php:8.1-web-v1.0.1
     deploy:
       replicas: 1
     configs:
       - source: siu-demo-ini
-        target: /etc/php7/conf.d/99-custom.ini
+        target: /etc/php81/conf.d/99-custom.ini
 configs:
   siu-demo-ini:
     file: /tmp/custom.ini
@@ -122,7 +117,7 @@ cargar cuantas personalizaciones querramos.
 Un ejemplo de agregar una personalización sería:
 
 ```
-FROM siudocker/php:web-7.4
+FROM siudocker/php:8.1-web-v1.0.1
 
-COPY ./custom.ini /etc/php7/conf.d/99-custom.ini
+COPY ./custom.ini /etc/php81/conf.d/99-custom.ini
 ```
