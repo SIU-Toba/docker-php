@@ -1,4 +1,4 @@
-FROM alpine:3.16 as cli
+FROM alpine:3.18 as cli
 
 # Por defecto se utiliza la timezone de Buenos Aires
 ENV TZ=America/Argentina/Buenos_Aires
@@ -36,8 +36,6 @@ RUN apk --no-cache add \
     && echo "date.timezone  = $TZ" > /etc/php81/conf.d/80-siu-timezone.ini \
     && rm -rf /var/cache/apk/*
 
-# https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
-RUN ln -s /usr/bin/php81 /usr/bin/php
 
 FROM cli as web
 
