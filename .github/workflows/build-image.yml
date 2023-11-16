@@ -96,3 +96,27 @@ jobs:
           file: ./8.1-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-web-rootless-${{ steps.vars.outputs.tag }} 
           target: rootless
+      -
+        name: Push 8.2 cli to Docker Hub
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: ./8.2-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.2-cli-${{ steps.vars.outputs.tag }}
+          target: cli
+      -
+        name: Push 8.2 web to Docker Hub
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: ./8.2-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.2-web-${{ steps.vars.outputs.tag }} 
+          target: web
+      -
+        name: Push 8.2 rootless to Docker Hub
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: ./8.2-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.2-web-rootless-${{ steps.vars.outputs.tag }} 
+          target: rootless
