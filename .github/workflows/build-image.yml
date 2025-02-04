@@ -23,31 +23,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Push 8.0 cli to Docker Hub
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          file: ./8.0-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-cli-${{ steps.vars.outputs.tag }}
-          target: cli
-      -
-        name: Push 8.0 web to Docker Hub
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          file: ./8.0-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-web-${{ steps.vars.outputs.tag }} 
-          target: web
-      -
-        name: Push 8.0 rootless to Docker Hub
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          file: ./8.0-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.0-web-rootless-${{ steps.vars.outputs.tag }} 
-          target: rootless
+          password: ${{ secrets.DOCKERHUB_TOKEN }}      
       -
         name: Push 8.1 cli to Docker Hub
         uses: docker/build-push-action@v4
@@ -119,4 +95,28 @@ jobs:
           push: true
           file: ./8.3-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.3-web-rootless-${{ steps.vars.outputs.tag }} 
+          target: rootless
+      -
+        name: Push 8.4 cli to Docker Hub
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: ./8.4-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.4-cli-${{ steps.vars.outputs.tag }}
+          target: cli
+      -
+        name: Push 8.4 web to Docker Hub
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: ./8.4-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.4-web-${{ steps.vars.outputs.tag }} 
+          target: web
+      -
+        name: Push 8.4 rootless to Docker Hub
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: ./8.4-alpine/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.4-web-rootless-${{ steps.vars.outputs.tag }} 
           target: rootless
