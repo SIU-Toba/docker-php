@@ -68,7 +68,7 @@ ENV USER=$USER
 ARG UID=222
 
 RUN adduser -h /usr/local/app -u $UID -G www-data -S $USER \
-    && chown -R $USER.0 \
+    && chown -R $USER:0 \
         /var/run/apache2 \
         /var/log/apache2 \
         /etc/php82/conf.d \

@@ -37,7 +37,7 @@ RUN apk --no-cache add \
     && rm -rf /var/cache/apk/*
 
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
-RUN ln -s /usr/bin/php83 /usr/bin/php
+# RUN ln -s /usr/bin/php83 /usr/bin/php
 
 FROM cli as web
 
@@ -68,7 +68,7 @@ ENV USER=$USER
 ARG UID=222
 
 RUN adduser -h /usr/local/app -u $UID -G www-data -S $USER \
-    && chown -R $USER.0 \
+    && chown -R $USER:0 \
         /var/run/apache2 \
         /var/log/apache2 \
         /etc/php83/conf.d \
