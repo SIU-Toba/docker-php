@@ -1,4 +1,4 @@
-FROM alpine:3.16 as cli
+FROM alpine:3.16 AS cli
 
 # Por defecto se utiliza la timezone de Buenos Aires
 ENV TZ=America/Argentina/Buenos_Aires
@@ -36,7 +36,17 @@ RUN apk --no-cache add \
     && echo "date.timezone  = $TZ" > /etc/php8/conf.d/80-siu-timezone.ini \
     && rm -rf /var/cache/apk/*
 
-FROM cli as web
+# https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
+RUN ln -s /usr/bin/php8 /usr/bin/php
+
+COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
+COPY common/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
+
+
+
+FROM cli AS web
 
 RUN apk --no-cache add \
     apache2 \
@@ -49,16 +59,16 @@ RUN apk --no-cache add \
     && sed -i 's/^Listen 80$/Listen 0.0.0.0:8080/' /etc/apache2/httpd.conf
 COPY common/apache/* /etc/apache2/conf.d/
 COPY common/php/* /etc/php8/conf.d/
-COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
-COPY common/entrypoint.sh /usr/local/bin/entrypoint.sh
+# COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
+# COPY common/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT ["entrypoint.sh"]
+# ENTRYPOINT ["entrypoint.sh"]
 
 CMD ["httpd", "-D", "FOREGROUND"]
 
 EXPOSE 8080
 
-FROM web as rootless
+FROM web AS rootless
 
 ARG USER=siu
 ENV USER=$USER
