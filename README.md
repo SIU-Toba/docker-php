@@ -4,7 +4,7 @@ Este repositorio contiene el código necesario para construir imágenes de
 contenedores basadas en php en diferentes versiones del lenguaje:
 
 * [x] 8.0 (deprecada)
-* [x] 8.1 
+* [x] 8.1 (deprecada)
 * [x] 8.2 
 * [x] 8.3
 * [x] 8.4
@@ -46,6 +46,12 @@ necesidad de agregar "capacidades" extra que pueden ser excluídas por cuestión
 
 Esta imagen utiliza un usuario no privilegiado para correr. La imagen crea un
 usuario que por defecto se parametriza es siu
+
+## Imagenes Multi-Arch
+
+A partir del tag v1.5.0 para PHP 8.3+ se ofrecen imagenes para las arquitecturas linux/amd64 y linux/arm64.
+
+Para poder utilizarlas, recuerde incluir el modificador `--platform` al momento de buildear su imagen.
 
 ## Usos de la imagen
 
