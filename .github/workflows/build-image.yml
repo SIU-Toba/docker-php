@@ -12,6 +12,9 @@ jobs:
         name: Checkout
         uses: actions/checkout@v6
       -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       -
@@ -76,6 +79,7 @@ jobs:
         name: Push 8.3 cli to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.3-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.3-cli-${{ steps.vars.outputs.tag }}
@@ -84,6 +88,7 @@ jobs:
         name: Push 8.3 web to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.3-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.3-web-${{ steps.vars.outputs.tag }}
@@ -92,6 +97,7 @@ jobs:
         name: Push 8.3 rootless to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.3-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.3-web-rootless-${{ steps.vars.outputs.tag }}
@@ -100,6 +106,7 @@ jobs:
         name: Push 8.4 cli to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.4-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.4-cli-${{ steps.vars.outputs.tag }}
@@ -108,6 +115,7 @@ jobs:
         name: Push 8.4 web to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.4-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.4-web-${{ steps.vars.outputs.tag }}
@@ -116,6 +124,7 @@ jobs:
         name: Push 8.4 rootless to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.4-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.4-web-rootless-${{ steps.vars.outputs.tag }}
@@ -124,6 +133,7 @@ jobs:
         name: Push 8.5 cli to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.5-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.5-cli-${{ steps.vars.outputs.tag }}
@@ -132,6 +142,7 @@ jobs:
         name: Push 8.5 web to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.5-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.5-web-${{ steps.vars.outputs.tag }}
@@ -140,6 +151,7 @@ jobs:
         name: Push 8.5 rootless to Docker Hub
         uses: docker/build-push-action@v7
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           file: ./8.5-alpine/Dockerfile
           tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.5-web-rootless-${{ steps.vars.outputs.tag }}
