@@ -28,30 +28,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Push 8.1 cli to Docker Hub
-        uses: docker/build-push-action@v7
-        with:
-          push: true
-          file: ./8.1-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-cli-${{ steps.vars.outputs.tag }}
-          target: cli
-      -
-        name: Push 8.1 web to Docker Hub
-        uses: docker/build-push-action@v7
-        with:
-          push: true
-          file: ./8.1-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-web-${{ steps.vars.outputs.tag }}
-          target: web
-      -
-        name: Push 8.1 rootless to Docker Hub
-        uses: docker/build-push-action@v7
-        with:
-          push: true
-          file: ./8.1-alpine/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY }}:8.1-web-rootless-${{ steps.vars.outputs.tag }}
-          target: rootless
-      -
         name: Push 8.2 cli to Docker Hub
         uses: docker/build-push-action@v7
         with:
