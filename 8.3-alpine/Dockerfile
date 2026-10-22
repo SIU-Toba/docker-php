@@ -37,7 +37,7 @@ RUN apk --no-cache add \
     && rm -rf /var/cache/apk/*
 
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/12308
-# RUN ln -s /usr/bin/php83 /usr/bin/php
+RUN ln -s /usr/bin/php83 /usr/bin/php
 
 COPY common/siu-entrypoint.d/* /siu-entrypoint.d/
 COPY common/entrypoint.sh /usr/local/bin/entrypoint.sh
