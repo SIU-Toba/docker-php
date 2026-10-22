@@ -1,4 +1,4 @@
-FROM alpine:3.23 AS cli
+FROM alpine:3.24 AS cli
 
 # Por defecto se utiliza la timezone de Buenos Aires
 ENV TZ=America/Argentina/Buenos_Aires
