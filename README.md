@@ -3,8 +3,6 @@
 Este repositorio contiene el código necesario para construir imágenes de
 contenedores basadas en php en diferentes versiones del lenguaje:
 
-* [x] 8.0 (deprecada)
-* [x] 8.1 (deprecada)
 * [x] 8.2 
 * [x] 8.3
 * [x] 8.4
@@ -71,7 +69,7 @@ configuración de `memory_limit`. Primero verificamos el valor actual:
 
 ```bash
 docker run --rm \
-  siudocker/php:8.2-cli-v1.0.3 php -r 'echo ini_get("memory_limit")."\n";'
+  siudocker/php:8.2-cli-v1.5.3 php -r 'echo ini_get("memory_limit")."\n";'
 ```
 
 Usando un volumen:
@@ -81,7 +79,7 @@ echo "memory_limit = 64M" > /tmp/custom.ini && \
   docker run \
     -v /tmp/custom.ini:/etc/php81/conf.d/90-custom.ini \
     --rm \
-    siudocker/php:8.2-cli-v1.0.3 php -r 'echo ini_get("memory_limit")."\n";'
+    siudocker/php:8.2-cli-v1.5.3 php -r 'echo ini_get("memory_limit")."\n";'
 ```
 
 Usando un config de swarm:
@@ -95,7 +93,7 @@ cat <<COMPOSE > /tmp/siu-stack.yml
 version: "3.9"
 services:
   web:
-    image: siudocker/php:8.2-web-v1.0.3
+    image: siudocker/php:8.2-web-v1.5.3
     deploy:
       replicas: 1
     configs:
@@ -126,7 +124,7 @@ cargar cuantas personalizaciones querramos.
 Un ejemplo de agregar una personalización sería:
 
 ```
-FROM siudocker/php:8.2-web-v1.0.3
+FROM siudocker/php:8.2-web-v1.5.3
 
 COPY ./custom.ini /etc/php81/conf.d/99-custom.ini
 ```
